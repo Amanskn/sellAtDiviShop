@@ -1,15 +1,19 @@
 <h1>Store Page</h1>
-<%=currentSeller%>
+<b>This is your personal store url Keep it safe:-&nbsp;</b>
+    <span>
+        http://localhost:8000/sellers/<%=currentSeller.email%>
+    </span>    
 
-<form action="">
+
+<form action="/sellers/store/create" method="post">
     <fieldset>
         <legend><h3>Store Info</h3></legend>
         <label for="address">Address :-</label>
-        <input type="text" placeholder="Enter store address..." id="address" name="address">
+        <input type="text" placeholder="Enter store address..." id="address" name="address" required>
         <br>
         <br>
         <label for="gst">GST NO. :-</label>
-        <input type="text" placeholder="Enter GST number..." id="gst" name="gst">
+        <input type="text" placeholder="Enter GST number..." id="gst" name="gst" required>
         <br>
         <br>
         <label for="logo">Logo :-</label>
@@ -17,11 +21,14 @@
         <br>
         <br>
         <label for="from-time">From :-</label>
-        <input type="time" placeholder="Enter opening time..." id="from-time" name="fromTime">
+        <input type="time" placeholder="Enter opening time..." id="from-time" name="fromTime" required>
         <br>
         <br>
         <label for="to-time">To :-</label>
-        <input type="time" placeholder="Enter closing time..." id="to-time" name="toTime">
+        <input type="time" placeholder="Enter closing time..." id="to-time" name="toTime" required>
+        <br>
+        <br>
+        <input type="submit">
     </fieldset>
 </form>
 <h1>Hi</h1>

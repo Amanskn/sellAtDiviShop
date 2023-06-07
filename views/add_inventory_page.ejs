@@ -1,0 +1,41 @@
+<h1>Inventory Page</h1>
+<b>This is your personal store url Keep it safe:-&nbsp;</b>
+    <span>
+        
+    </span>    
+
+
+<form action="/sellers/add-inventory" method="post">
+    <fieldset>
+        <legend><h3>Inventory Info</h3></legend>
+        <label for="address">Category :-</label>
+        <input type="text" placeholder="Enter product category..." id="category" name="category" required>
+        <br>
+        <br>
+        <label for="sub-category">Sub-Category :-</label>
+        <input type="text" placeholder="Enter product sub-category..." id="sub-category" name="subCategory" required>
+        <br>
+        <br>
+        <label for="product-name">Product name :-</label>
+        <input type="text" placeholder="Enter product name..." id="product-name" name="productName" required>
+        <br>
+        <br>
+        <label for="mrp">MRP :-</label>
+        <input type="number" placeholder="Enter MRP..." id="mrp" name="mrp" required>
+        <br>
+        <br>
+        <label for="selling-price">Selling price :-</label>
+        <input type="number" placeholder="Enter selling price..." id="to-time" name="sellingPrice" required>
+        <br>
+        <br>
+        <label for="qty">Quantity :-</label>
+        <input type="number" id="qty" name="qty" placeholder="Enter Quantity..." required>
+        <br>
+        <br>
+        <label for="prod-image">Product Image :-</label>
+        <input type="file" id="prod-image" name="prodImage">
+        <br>
+        <br>
+        <input type="submit" value="Add Inventory">
+    </fieldset>
+</form>
