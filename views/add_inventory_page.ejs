@@ -1,11 +1,18 @@
-<h1>Inventory Page</h1>
-<b>This is your personal store url Keep it safe:-&nbsp;</b>
-    <span>
-        
-    </span>    
+<center>
+    <h1>Add inventory to your store </h1>
 
+<p>
+    <h2>
+        <img  height="150px" src="data:image/<%=storeInfo.logo.contentType%>;base64,<%=storeInfo.logo.data.toString('base64')%>" alt="store's-logo">
+    </h2>
+    <h2>Store's address is :- <mark><%=storeInfo.address%></mark></h2>
+    <h2>Store's GST NO. is :- <mark><%=storeInfo.gst%></mark></h2>
+    <h2>Store's opening time :- <mark><%=storeInfo.fromTime%></mark></h2>
+    <h2>Store's closing time :- <mark><%=storeInfo.toTime%></mark></h2>
+</p>
+</center>
 
-<form action="/sellers/add-inventory" method="post">
+<form action="/sellers/add-inventory" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend><h3>Inventory Info</h3></legend>
         <label for="address">Category :-</label>
@@ -33,9 +40,43 @@
         <br>
         <br>
         <label for="prod-image">Product Image :-</label>
-        <input type="file" id="prod-image" name="prodImage">
+        <input type="file" id="prod-image" name="productImage" required>
         <br>
         <br>
+        <input type="hidden" value="<%=sellerEmail%>" name="sellerEmail">
         <input type="submit" value="Add Inventory">
     </fieldset>
 </form>
+
+
+<!-- <h1><%=sellerEmail%></h1> -->
+<%/*%>
+<%=ty%>
+<%*/%>
+<h1>You store has <span><code><%=productsOfTheSeller.length%></code></span> different products.</h1>
+<ol>
+    <% for(product of productsOfTheSeller){%>
+        <li>
+           <fieldset>
+                <legend><%=product.productName%></legend>
+                <p>
+                
+                    <img  height="150px" src="data:image/<%=product.productImage.contentType%>;base64,<%=product.productImage.data.toString('base64')%>" alt="product's-image">
+                    <br>
+                    <span><b>Product name :- </b><%=product.productName%></span>
+                    <br>
+                    <span><b>MRP :- </b><%=product.mrp%></span>
+                    <br>
+                    <span><b>Available now at :- </b> <mark>&#8377; <%=product.sellingPrice%></mark>/- only </span>
+                    <br>
+                    <span><b>Left only :- </b><%=product.qty%></span>
+               </p>
+           </fieldset>
+            
+        </li>
+        
+    <%}%>
+    
+    
+    </ol>
+

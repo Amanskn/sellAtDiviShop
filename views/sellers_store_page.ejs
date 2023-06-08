@@ -1,11 +1,19 @@
-<h1>Store Page</h1>
-<b>This is your personal store url Keep it safe:-&nbsp;</b>
-    <span>
-        http://localhost:8000/sellers/<%=currentSeller.email%>
-    </span>    
+<center>
+    <h1>Add some basic information of your store so that customers can get a clear picture of your store...</h1>
+</center>
+
+    <% if(store){%>
+        <b>This is your personal store's url Keep it safe:-&nbsp;</b>
+        <span>
+            <a href="http://localhost:8000/sellers/<%=currentSeller.email%>">
+                <mark>http://localhost:8000/sellers/<%=currentSeller.email%></mark>
+            </a>
+        </span>
+    <%}else{%>    
 
 
-<form action="/sellers/store/create" method="post">
+
+<form action="/sellers/store/create" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend><h3>Store Info</h3></legend>
         <label for="address">Address :-</label>
@@ -17,7 +25,7 @@
         <br>
         <br>
         <label for="logo">Logo :-</label>
-        <input type="file" placeholder="Enter Store logo..." id="logo" name="logo">
+        <input type="file" placeholder="Enter Store logo..." id="logo" name="logo" value="" required>
         <br>
         <br>
         <label for="from-time">From :-</label>
@@ -31,4 +39,4 @@
         <input type="submit">
     </fieldset>
 </form>
-<h1>Hi</h1>
+<%}%>

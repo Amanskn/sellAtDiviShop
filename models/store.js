@@ -20,7 +20,8 @@ const storeSchema=new mongoose.Schema({
         required:true
     },
     logo:{
-        type:String,
+        data: Buffer,
+        contentType: String
         // required:true
     },
     fromTime:{

@@ -1,5 +1,24 @@
 const Seller = require("../models/seller")
 const Store = require("../models/store");
+const Product = require("../models/products");
+const fs=require('fs');
+const path=require('path');
+
+
+
+
+var multer = require('multer');
+ 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+ 
+module.exports.upload = multer({ storage: storage });
 
 module.exports.signUp = function (req, res) {
     return res.render("sellers_sign_up", {
@@ -12,7 +31,7 @@ module.exports.signUp = function (req, res) {
 module.exports.create = async function (req, res) {
 
     try {
-            console.log("This is the req.body", req.body)
+            // console.log("This is the req.body", req.body)
             // if password and confirm password do not match then redirect to the sign up page
             if (req.body.password != req.body.confirmPassword) {
                 // alert("Password and confirm password do not match");
@@ -60,9 +79,18 @@ module.exports.store =async  function (req, res) {
             let currSeller= await Seller.findById(req.cookies.currentSeller);
             // console.log("This is the req.cookies.cuurentUser",req.cookies.currentSelle);
             // console.log("This is seller fetched",currSeller);
+            if(currSeller.store){
+                return res.render("sellers_store_page", {
+                    title: "Store Page",
+                    currentSeller:currSeller,
+                    store:true
+                })    
+            }
+
             return res.render("sellers_store_page", {
                 title: "Store Page",
-                currentSeller:currSeller
+                currentSeller:currSeller,
+                store:false
             })
         
     } catch (error) {
@@ -75,17 +103,22 @@ module.exports.store =async  function (req, res) {
 
 module.exports.storeCreate=async function(req,res){
     try {
-        console.log("This is the req.body in Store create",req.body,req.cookies.currentSeller);
+        // console.log("This is the req.body in Store create",req.body,req.cookies.currentSeller);
         let newStore=await Store.create({
             seller:req.cookies.currentSeller,
             address:req.body.address,
             gst:req.body.gst,
             fromTime:req.body.fromTime,
             toTime:req.body.toTime,
+            logo:{
+                data: fs.readFileSync(path.join(__dirname ,'../uploads/' + req.file.filename)),
+                contentType: 'image/png'
+
+            }
             
         });
         let preSeller=await Seller.findByIdAndUpdate(newStore.seller, { store: newStore._id }, { new: true });
-        console.log("Store created and the Store is :- ",newStore,"And the preSeller is:- ",preSeller);
+        // console.log("Store created and the Store is :- ",newStore,"And the preSeller is:- ",preSeller);
 
 
         return res.redirect("back");
@@ -97,15 +130,55 @@ module.exports.storeCreate=async function(req,res){
 
 }
 
-module.exports.addInventoryPage=function(req,res){
-    return res.render("add_inventory_page",{
-        title:"Inventory Page"
-    })
+module.exports.addInventoryPage= async function(req,res){
+    try {
+        let seller=await Seller.findOne({email:req.params.email});
+        let store=await Store.findById(seller.store);
+        let productsOfTheSeller= await Product.find({ _id: { $in: store.products } });
+        return res.render("add_inventory_page",{
+            title:"Inventory Page",
+            sellerEmail:req.params.email,
+            storeInfo:store,
+            productsOfTheSeller:productsOfTheSeller
+        })
+        
+    } catch (error) {
+        console.log("Inside catch of addInventoryPage and the error is :- ",error);
+        return;
+    }
+    
 }
 
-module.exports.addInventory=function(req,res){
-    console.log("This is the inventory info :- ",req.body);
-    return res.redirect("back");
+module.exports.addInventory=async function(req,res){
+    try {
+        // console.log("This is the seller email",req.body.sellerEmail,req.body);
+        let seller=await Seller.findOne({email:req.body.sellerEmail});
+        let newProduct=await Product.create(req.body);
+        newProduct.productImage={
+            data: fs.readFileSync(path.join(__dirname ,'../uploads/' + req.file.filename)),
+            contentType: 'image/png'
+
+        };
+        await newProduct.save();
+        // console.log("Before new Product",newProduct);
+        let store=await Store.findById(seller.store);
+        store.products.push(newProduct);
+        await store.save();
+
+        // console.log("THis is seller.store",seller.store,seller)
+        newProduct.store=seller.store;
+        await newProduct.save();
+        // console.log("After new Product",newProduct)
+
+        return res.redirect("back");
+        
+
+        
+    } catch (error) {
+        console.log("Inside catch of add inventory and the error is :- ",error);
+        return;
+    }
+    
 }
 
 module.exports.createSession = function (req, res) {
