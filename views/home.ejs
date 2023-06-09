@@ -1,3 +1,34 @@
 <h1>
     <%=title%>
 </h1>
+
+<form action="/product/search" method="post">
+    <input style=" width:70vw;" type="text" name="keyWord" placeholder="Enter product name to search for it ...">
+    <input type="submit" value="Search">
+</form>
+
+<ol>
+    <% for(product of allProducts){%>
+        <li>
+           <fieldset>
+                <legend><%=product.productName%></legend>
+                <p>
+                
+                    <img  height="150px" src="data:image/<%=product.productImage.contentType%>;base64,<%=product.productImage.data.toString('base64')%>" alt="product's-image">
+                    <br>
+                    <span><b>Product name :- </b><%=product.productName%></span>
+                    <br>
+                    <span><b>MRP :- </b><%=product.mrp%></span>
+                    <br>
+                    <span><b>Available now at :- </b> <mark>&#8377; <%=product.sellingPrice%></mark>/- only </span>
+                    <br>
+                    <span><b>Left only :- </b><%=product.qty%></span>
+               </p>
+           </fieldset>
+            
+        </li>
+        
+    <%}%>
+    
+    
+    </ol>
