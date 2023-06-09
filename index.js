@@ -7,6 +7,8 @@ const expressLayouts=require('express-ejs-layouts');
 const DB=require('./config/mongoose')
 app.use(cookieParser());
 app.use(express.urlencoded({extended:false}))
+
+app.use(express.static('./assets'))
 app.set('view engine',"ejs");
 app.set('views',"./views");
 

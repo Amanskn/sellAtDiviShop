@@ -1,0 +1,110 @@
+body{
+    background-color: rgb(76, 73, 73);
+}
+header{
+    /* border: 2px solid red; */
+    height: 5rem;
+    border-radius:5px ;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 10px rgb(122, 87, 87);
+}
+header>div{
+    
+    /* border: 2px solid green; */
+    /* width: 70%; */
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    
+}
+header>div button{
+    background-color: rgb(36, 32, 32);
+    color: rgb(15, 161, 161);
+    font-size: 1.2rem;
+    height: 2rem;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 4px solid rgb(36, 32, 32);
+    cursor: pointer;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    
+    transition: all 0.2s;
+}
+header>div button:hover{
+    transform: scale(1.2);
+    color: rgb(36, 32, 32);
+    /* background-color: rgb(15, 161, 161); */
+    background-color: transparent;
+    
+}
+body>main{
+    /* border: 2px solid red; */
+    margin-top: 10px;
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 10px rgb(122, 87, 87);
+    border-radius: 5px;
+}
+
+body>main input{
+    height: 30px;
+    padding: 0px 10px;
+    font-size: 1.2rem;
+    width: 50%;
+    border-radius: 20px;
+    border: none;
+    color: rgb(15, 161, 161);
+    background-color: rgb(36, 32, 32);
+    transition: width 0.3s;
+    font-weight: bold;
+}
+body>main input:focus{
+    outline: 2px solid rgb(15, 161, 161) ;
+    width: 80%;
+}
+
+body>main input[type='submit']{
+    
+    cursor: pointer;
+    width: 200px;
+    
+    transition: transform 0.2s;
+}
+body>main input[type='submit']:hover{
+    transform: scale(1.2);
+}
+footer{
+    height: 5rem;
+    margin-top: 10px;
+    border-radius:5px ;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 10px rgb(122, 87, 87);   
+    text-align: center;
+}
+
+footer>div>div{
+    /* border: 2px solid green; */
+    background-color: rgb(36, 32, 32);
+    color: rgb(15, 161, 161);
+    font-size: 1.2rem;
+    width:40% ;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 4px solid rgb(36, 32, 32);
+    margin: auto;
+    margin-top: 10px;
+    transition: all 0.2s;
+    
+}
+footer>div>div:hover{
+    color: rgb(36, 32, 32);
+    width: 60%;
+    background-color: transparent;
+}
