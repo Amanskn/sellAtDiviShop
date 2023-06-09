@@ -80,10 +80,14 @@ module.exports.store =async  function (req, res) {
             // console.log("This is the req.cookies.cuurentUser",req.cookies.currentSelle);
             // console.log("This is seller fetched",currSeller);
             if(currSeller.store){
+                console.log("This is the req.url:-",req.url)
+                const baseUrl = `${req.protocol}://${req.hostname}`;
+                console.log("This is the full url:-",baseUrl)
                 return res.render("sellers_store_page", {
                     title: "Store Page",
                     currentSeller:currSeller,
-                    store:true
+                    store:true,
+                    baseUrl:baseUrl
                 })    
             }
 
