@@ -2,7 +2,7 @@ require('dotenv').config()
 const express=require("express");
 const cookieParser = require('cookie-parser')
 const app=express();
-const port=process.env.PORT||3000;
+const port=3000;
 const expressLayouts=require('express-ejs-layouts');
 const DB=require('./config/mongoose')
 app.use(cookieParser());
